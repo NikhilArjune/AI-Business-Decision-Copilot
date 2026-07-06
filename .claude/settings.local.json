@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Get-ChildItem -Recurse \"D:\\\\kaggle_project\\\\capston\" -Depth 3)",
-      "Bash(Select-Object FullName, Length)",
-      "Bash(Format-Table -AutoSize)"
-    ]
-  }
-}
