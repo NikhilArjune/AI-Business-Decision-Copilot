@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1600px; height: 900px; overflow: hidden; }
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background: #060a15; color: #eaf0ff; position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  svg.i { width: 1em; height: 1em; display: block; }
+
+  /* ---------- Background ---------- */
+  .bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1100px 680px at 82% 12%, rgba(99,102,241,0.34), transparent 60%),
+      radial-gradient(900px 760px at 8% 96%, rgba(16,185,129,0.16), transparent 60%),
+      radial-gradient(800px 560px at 96% 92%, rgba(139,92,246,0.22), transparent 62%),
+      linear-gradient(155deg, #070c1b 0%, #0b1225 46%, #090e1f 100%);
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(1000px 640px at 64% 42%, #000 24%, transparent 80%);
+    -webkit-mask-image: radial-gradient(1000px 640px at 64% 42%, #000 24%, transparent 80%);
+  }
+  .ring {
+    position: absolute; width: 640px; height: 640px; right: -150px; top: -180px; border-radius: 50%;
+    background: conic-gradient(from 210deg, rgba(99,102,241,0), rgba(99,102,241,0.6), rgba(16,185,129,0.4), rgba(139,92,246,0.4), rgba(99,102,241,0));
+    filter: blur(50px); opacity: 0.5;
+  }
+
+  .wrap { position: relative; width: 100%; height: 100%; padding: 66px 84px; display: flex; flex-direction: column; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 17px; }
+  .logo {
+    width: 72px; height: 72px; border-radius: 20px;
+    background: linear-gradient(145deg, #6366f1, #8b5cf6);
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 38px;
+    box-shadow: 0 14px 40px rgba(99,102,241,0.55), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .brand-txt .n { font-weight: 800; font-size: 24px; letter-spacing: 0.2px; }
+  .brand-txt .s { font-size: 13px; color: #8fa0c8; font-weight: 600; margin-top: 5px; letter-spacing: 2.6px; text-transform: uppercase; }
+  .track-chip {
+    display: inline-flex; align-items: center; gap: 11px; padding: 12px 22px; border-radius: 999px;
+    background: rgba(16,185,129,0.10); border: 1px solid rgba(16,185,129,0.42);
+    color: #6ee7b7; font-weight: 600; font-size: 14.5px; letter-spacing: 0.7px;
+  }
+  .track-chip .dot { width: 9px; height: 9px; border-radius: 50%; background: #34d399; box-shadow: 0 0 12px #34d399; }
+
+  /* ---------- Main (hero + preview) ---------- */
+  .main { display: flex; gap: 48px; margin-top: 58px; align-items: flex-start; }
+  .left { flex: 1; min-width: 0; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 13px; font-size: 14px; letter-spacing: 3px;
+    text-transform: uppercase; color: #a6b3da; font-weight: 700; margin-bottom: 22px; }
+  .eyebrow .bar { width: 40px; height: 2px; background: linear-gradient(90deg,#6366f1,#8b5cf6); }
+  h1 { font-size: 62px; line-height: 1.08; font-weight: 900; letter-spacing: -1.4px; }
+  h1 .grad {
+    background: linear-gradient(100deg, #a5b4fc 0%, #818cf8 32%, #6ee7b7 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { margin-top: 28px; font-size: 24px; line-height: 1.55; color: #bcc7e6; max-width: 720px; font-weight: 400; }
+  .sub b { color: #f0f4ff; font-weight: 700; }
+
+  /* ---------- Preview card (glass) ---------- */
+  .card {
+    width: 440px; flex-shrink: 0; border-radius: 22px; padding: 26px 26px 24px;
+    background: linear-gradient(180deg, rgba(24,31,54,0.82), rgba(14,19,36,0.82));
+    border: 1px solid rgba(255,255,255,0.13);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.55), 0 0 0 1px rgba(99,102,241,0.10), inset 0 1px 0 rgba(255,255,255,0.10);
+    backdrop-filter: blur(14px);
+  }
+  .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .qpill { display: inline-flex; align-items: center; gap: 9px; padding: 9px 14px; border-radius: 10px;
+    background: rgba(99,102,241,0.14); border: 1px solid rgba(99,102,241,0.32); color: #c7cdff; font-size: 14px; font-weight: 600; }
+  .qpill .i { font-size: 16px; color: #a5b4fc; }
+  .live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: #6ee7b7; font-weight: 600; letter-spacing: 0.5px; }
+  .live .d { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
+
+  .revrow { display: flex; align-items: baseline; gap: 14px; padding: 6px 2px 18px; border-bottom: 1px solid rgba(255,255,255,0.09); }
+  .revrow .lbl { font-size: 14px; color: #93a2c7; font-weight: 600; }
+  .revrow .val { font-size: 40px; font-weight: 800; color: #fb7185; letter-spacing: -1px; display: flex; align-items: center; gap: 8px; }
+  .revrow .val .i { font-size: 26px; }
+
+  .sec { font-size: 11.5px; letter-spacing: 2.2px; text-transform: uppercase; color: #7e8db4; font-weight: 700; margin: 18px 0 14px; }
+  .cause { margin-bottom: 15px; }
+  .cause .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .cause .name { display: flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 600; color: #e4e9fb; }
+  .cause .name .ci { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .ci.a { background: rgba(99,102,241,0.20); color: #a5b4fc; }
+  .ci.b { background: rgba(139,92,246,0.20); color: #c4b5fd; }
+  .ci.c { background: rgba(16,185,129,0.18); color: #6ee7b7; }
+  .cause .pct { font-size: 14px; font-weight: 700; color: #cbd4f0; font-family: 'JetBrains Mono', monospace; }
+  .track { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #6366f1, #8b5cf6 55%, #34d399); }
+
+  .verified { display: flex; align-items: center; gap: 10px; margin-top: 20px; padding: 12px 15px; border-radius: 12px;
+    background: rgba(16,185,129,0.10); border: 1px solid rgba(16,185,129,0.30); color: #a7f3d0; font-size: 14px; font-weight: 600; }
+  .verified .i { font-size: 18px; color: #34d399; }
+
+  /* ---------- Pipeline ---------- */
+  .pipe { margin-top: 50px; display: flex; align-items: center; gap: 14px; }
+  .node { display: flex; align-items: center; gap: 12px; padding: 15px 20px; border-radius: 15px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.11);
+    font-weight: 600; font-size: 16.5px; white-space: nowrap; box-shadow: 0 10px 28px rgba(0,0,0,0.28); }
+  .node .ic { width: 30px; height: 30px; border-radius: 9px; display:flex; align-items:center; justify-content:center; font-size: 17px; color: #a5b4fc; background: rgba(99,102,241,0.20); }
+  .n-par { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.13); box-shadow: 0 14px 34px rgba(99,102,241,0.28); }
+  .n-par .ic { background: rgba(129,140,248,0.30); color: #c7cdff; }
+  .n-out { border-color: rgba(16,185,129,0.42); background: rgba(16,185,129,0.11); }
+  .n-out .ic { background: rgba(52,211,153,0.26); color: #6ee7b7; }
+  .par-sub { font-size: 12.5px; color: #b4bfe2; font-weight: 500; margin-top: 2px; }
+  .arrow { color: #566089; font-size: 22px; }
+  .arrow .i { width: 26px; height: 26px; }
+
+  /* ---------- Footer ---------- */
+  .footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
+  .stats { display: flex; gap: 44px; }
+  .stat .v { font-size: 38px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+  .stat .v.i { color: #a5b4fc; } .stat .v.g { color: #6ee7b7; }
+  .stat .k { font-size: 13.5px; color: #8b99c0; font-weight: 500; margin-top: 7px; letter-spacing: 0.3px; }
+  .divider { width: 1px; height: 82px; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent); }
+  .stack { display: flex; align-items: center; gap: 12px; }
+  .badge { padding: 12px 17px; border-radius: 11px; font-size: 14.5px; font-weight: 600;
+    background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.11);
+    color: #d4dcf5; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.2px; }
+</style>
+</head>
+<body>
+  <div class="bg"></div><div class="grid"></div><div class="ring"></div>
+
+  <!-- reusable Lucide-style icons -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <g id="ic-bot" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></g>
+      <g id="ic-db" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></g>
+      <g id="ic-zap" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g>
+      <g id="ic-bar" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+      <g id="ic-shield" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>
+      <g id="ic-clip" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></g>
+      <g id="ic-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g>
+      <g id="ic-search" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></g>
+      <g id="ic-down" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 17h6v-6"/><path d="m22 17-8.5-8.5-5 5L2 7"/></g>
+      <g id="ic-pkg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/></g>
+      <g id="ic-mega" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></g>
+      <g id="ic-msg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></g>
+      <g id="ic-badge" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></g>
+    </defs>
+  </svg>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"><svg class="i"><use href="#ic-bot"/></svg></div>
+        <div class="brand-txt">
+          <div class="n">AI Business Decision Copilot</div>
+          <div class="s">Multi-Agent Intelligence</div>
+        </div>
+      </div>
+      <div class="track-chip"><span class="dot"></span> AGENTS FOR BUSINESS · GOOGLE ADK CAPSTONE</div>
+    </div>
+
+    <div class="main">
+      <div class="left">
+        <div class="eyebrow"><span class="bar"></span> Evidence-backed business diagnosis</div>
+        <h1>Ask <span class="grad">why the numbers&nbsp;moved.</span><br>Get the answer in&nbsp;seconds.</h1>
+        <div class="sub">A team of <b>11 specialized AI agents</b> cross-analyzes your sales, inventory, marketing &amp; support data — then returns ranked root causes with <b>confidence scores</b> and prioritized actions.</div>
+      </div>
+
+      <!-- Product preview: shows the actual output (problem → answer) -->
+      <div class="card">
+        <div class="card-top">
+          <div class="qpill"><svg class="i"><use href="#ic-search"/></svg> Why did revenue drop?</div>
+          <div class="live"><span class="d"></span> LIVE</div>
+        </div>
+
+        <div class="revrow">
+          <span class="lbl">Revenue&nbsp;·&nbsp;June</span>
+          <span class="val"><svg class="i"><use href="#ic-down"/></svg> 18.4%</span>
+        </div>
+
+        <div class="sec">Ranked Root Causes</div>
+
+        <div class="cause">
+          <div class="head"><div class="name"><span class="ci a"><svg class="i"><use href="#ic-pkg"/></svg></span> Inventory stockout</div><div class="pct">92%</div></div>
+          <div class="track"><div class="fill" style="width:92%"></div></div>
+        </div>
+        <div class="cause">
+          <div class="head"><div class="name"><span class="ci b"><svg class="i"><use href="#ic-mega"/></svg></span> Marketing ROI drop</div><div class="pct">85%</div></div>
+          <div class="track"><div class="fill" style="width:85%"></div></div>
+        </div>
+        <div class="cause">
+          <div class="head"><div class="name"><span class="ci c"><svg class="i"><use href="#ic-msg"/></svg></span> Complaint spike</div><div class="pct">78%</div></div>
+          <div class="track"><div class="fill" style="width:78%"></div></div>
+        </div>
+
+        <div class="verified"><svg class="i"><use href="#ic-badge"/></svg> Verified by evidence · 3 actions ready</div>
+      </div>
+    </div>
+
+    <div class="pipe">
+      <div class="node"><span class="ic"><svg class="i"><use href="#ic-db"/></svg></span> Data</div>
+      <span class="arrow"><svg class="i"><use href="#ic-arrow"/></svg></span>
+      <div class="node n-par"><span class="ic"><svg class="i"><use href="#ic-zap"/></svg></span><div>Sales · Inventory · Marketing · Support<div class="par-sub">4 agents in parallel</div></div></div>
+      <span class="arrow"><svg class="i"><use href="#ic-arrow"/></svg></span>
+      <div class="node"><span class="ic"><svg class="i"><use href="#ic-bar"/></svg></span> Analytics</div>
+      <span class="arrow"><svg class="i"><use href="#ic-arrow"/></svg></span>
+      <div class="node"><span class="ic"><svg class="i"><use href="#ic-shield"/></svg></span> Verify</div>
+      <span class="arrow"><svg class="i"><use href="#ic-arrow"/></svg></span>
+      <div class="node n-out"><span class="ic"><svg class="i"><use href="#ic-clip"/></svg></span> Report</div>
+    </div>
+
+    <div class="footer">
+      <div class="stats">
+        <div class="stat"><div class="v i">11</div><div class="k">Specialized Agents</div></div>
+        <div class="stat"><div class="v">4</div><div class="k">Business Domains</div></div>
+        <div class="stat"><div class="v g">~4×</div><div class="k">Parallel Speedup</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="stack">
+        <div class="badge">Google ADK</div>
+        <div class="badge">MCP Server</div>
+        <div class="badge">Gemini 2.0</div>
+        <div class="badge">JWT · RBAC</div>
+        <div class="badge">Docker</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
