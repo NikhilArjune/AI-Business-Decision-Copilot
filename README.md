@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="docs/images/architecture_diagram.png" alt="AI Business Decision Copilot Architecture" width="800"/>
-</p>
+
 
 <h1 align="center">🤖 AI Business Decision Copilot</h1>
 
